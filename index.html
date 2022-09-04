@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Pingsut Suit</title>
+	<link rel="stylesheet" type="text/css" href="./style.css">
+	<!-- <script src="https://unpkg.com/vue@3"></script> -->
+	<script src="./vue.js"></script>
+</head>
+<body>
+	<div id="app"></div>
+	<script>
+	const { createApp } = Vue
+	  createApp({
+	    data() {
+	      return {
+	        pingsut: ['Gunting','Kertas','Batu'],
+	        hasilPingsut: '',
+	        dataPingsut: '',
+	        showPingsut: true
+	      }
+	    },
+	    template:`
+	    	<div class="min-h-full lg:container sm:w-full  mt-5">
+	    		<h1 class="text-center mt-10">Pingsut Suit dengan angka acak</h1>
+	    		<div class="flex flex-row justify-center mt-5 sm:flex-wrap" v-if="showPingsut">
+	    			<div v-for="(item,index) in pingsut" class="hover:border-[red] sm:mb-5 p-20 border-[black] border-dashed border-2" :class="{
+	    				'lg:ml-5': index === 2,
+	    				'lg:mr-5': index === 0,
+	    			}" @click="clickPingsut(index)">{{ item }}</div>
+	    		</div>
+	    		<div v-else class="flex flex-col justify-center items-center mt-5">
+	    			<p class="text-4xl sm:text-2xl">{{ dataPingsut }}</p>
+	    			<h1 class="text-3xl">{{ hasilPingsut }}</h1>
+	    			<button @click="showPingsut = true" class="bg-[red] text-[white] px-5 py-1">Mulai</button>
+	    		</div>
+	    	</div>
+	    `,
+	    methods:{
+  			clickPingsut(index){
+				let random = Math.floor(Math.random() * this.pingsut.length);
+
+				// Gunting
+				if (index == 0) {
+					this.dataPingsut = `Saya: Gunting, Acak: ${this.pingsut[random]}`
+					if (this.pingsut[random] == 'Gunting') {
+						this.hasilPingsut = 'Seri'
+		        		this.showPingsut = false
+					}else if (this.pingsut[random] == 'Batu') {
+						this.hasilPingsut = 'Kalah'
+		        		this.showPingsut = false
+					}else {
+						this.hasilPingsut = 'Menang'
+		        		this.showPingsut = false
+					}
+				}
+
+				//Kertas
+				if (index == 1) {
+					this.dataPingsut = `Saya: Kertas, Acak: ${this.pingsut[random]}`
+					if (this.pingsut[random] == 'Gunting') {
+						this.hasilPingsut = 'Kalah' 
+		        		this.showPingsut = false
+					}else if (this.pingsut[random] == 'Batu') {
+						this.hasilPingsut = 'Menang' 
+		        		this.showPingsut = false
+					}else {
+						this.hasilPingsut = 'Seri'	
+		        		this.showPingsut = false
+					}
+				}
+
+				//Batu
+				if (index == 2) {
+					this.dataPingsut = `Saya: Batu, Acak: ${this.pingsut[random]}`
+					if (this.pingsut[random] == 'Gunting') {
+						this.hasilPingsut = 'Menang' 
+		        		this.showPingsut = false
+					}else if (this.pingsut[random] == 'Batu') {
+						this.hasilPingsut = 'Seri' 
+		        		this.showPingsut = false
+					}else {
+						this.hasilPingsut = 'Kalah'	
+		        		this.showPingsut = false
+					}
+				}
+
+				console.log(this.pingsut[random])
+  			}
+	    }
+	  }).mount('#app')
+	</script>
+</body>
+</html>
